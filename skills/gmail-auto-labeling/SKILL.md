@@ -4,45 +4,51 @@
 Vered — Executive Personal Assistant
 
 ## Mission
-Keep Gmail continuously classified using a stable, explainable taxonomy without deleting messages or changing read/unread state.
+Keep Gmail classified with exactly one Vered user label per non-Spam/non-Trash message.
+
+## Core rule
+Every processed message must have exactly ONE custom Vered label.
+Gmail system labels such as INBOX, UNREAD, SENT, IMPORTANT and category labels are provider-managed and do not count toward this rule.
+
+## Canonical taxonomy
+- 🔴 אבטחה וחשבונות
+- 🔵 עבודה
+- 🟢 משפחה
+- 🩷 בריאות
+- 🟤 ממשלה ורשויות
+- 🟣 קריירה
+- 🟡 נסיעות
+- 🧾 חשבוניות וקבלות
+- 🟠 כספים
+- 🛒 קניות והזמנות
+- 🔷 טכנולוגיה
+- ⚪ כללי
+
+## Priority
+When a message matches more than one domain, assign the first matching category in this order:
+1. אבטחה וחשבונות
+2. עבודה
+3. משפחה
+4. בריאות
+5. ממשלה ורשויות
+6. קריירה
+7. נסיעות
+8. חשבוניות וקבלות
+9. כספים
+10. קניות והזמנות
+11. טכנולוגיה
+12. כללי
 
 ## Safety
-- Never delete email as part of labeling.
-- Never archive unless the user explicitly requests it.
-- Never remove an existing user label merely because Vered adds a new one.
-- Spam and Trash are excluded from normal classification.
-- Multiple labels are allowed when one message belongs to multiple domains.
+- Do not delete mail as part of classification.
+- Do not archive unless explicitly requested.
+- Exclude Spam and Trash.
+- Remove obsolete custom labels from messages before assigning the canonical label.
+- Never intentionally apply two custom Vered labels to the same message.
 
-## Canonical Vered taxonomy
-- ורד/מסווג — master marker for every processed message.
-- ורד/כספים — banking, cards, salary, pension, insurance, taxes, receipts and financial notices.
-- ורד/עבודה — Biscotti and other work-related communications.
-- ורד/משפחה — communications involving family members, children and schools.
-- ורד/קניות — orders, deliveries, purchase confirmations and retail.
-- ורד/חשבוניות וקבלות — invoices, receipts and payment documents.
-- ורד/קריירה — recruiters, LinkedIn career activity, job applications and professional opportunities.
-- ורד/נסיעות — flights, hotels, booking services, car rental and travel logistics.
-- ורד/בריאות — healthcare providers, clinics, appointments and medical administration.
-- ורד/ממשלה ורשויות — government agencies, tax authority and official public services.
-- ורד/אבטחה וחשבונות — sign-ins, password resets, verification codes and account-security notices.
-- ורד/טכנולוגיה — developer services, cloud tools, AI services and technology platforms.
-- ורד/כללי — processed messages not matching another Vered domain label.
-
-## Classification strategy
-1. Apply `ורד/מסווג` to every message except Spam and Trash.
-2. Apply all matching domain labels using sender, domain, subject and Gmail category evidence.
-3. After domain rules run, apply `ורד/כללי` only to messages with the master label and no domain label.
-4. Preserve all previous labels.
-5. Re-run safely: labeling is idempotent.
-
-## Important-message behavior
-Labeling is not importance detection. For alerts, Vered must separately inspect new mail and decide whether action is required.
+## Color policy
+The Gmail connector currently does not expose native label-color editing. Therefore canonical labels use visible color emoji prefixes.
+If native label-color mutation becomes available, map each label to its corresponding visual color without changing the one-label rule.
 
 ## Maintenance
-Periodically review:
-- messages left in `ורד/כללי`;
-- new frequent senders;
-- false positives;
-- categories with unusually large or small growth.
-
-Update classification queries when stable sender patterns emerge.
+Review ⚪ כללי periodically and promote stable patterns into an existing category or a deliberately approved new category.
