@@ -1,0 +1,19 @@
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+secrets/
+credentials/
+
+# Personal runtime data
+runtime-data/
+private-data/
+exports/
+downloads/
+mail/
+calendar/
+contacts/
+
+# Local
+.DS_Store
